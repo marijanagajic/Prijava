@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 13, 2018 3:26:51 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="prijava.beans.Clan" table="clan" catalog="prijava" optimistic-lock="version">
+        <id name="idclan" type="java.lang.Integer">
+            <column name="idclan" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="prijava" class="prijava.beans.Prijava" fetch="select">
+            <column name="idprijava" not-null="true" />
+        </many-to-one>
+        <property name="ime" type="string">
+            <column name="ime" length="45" not-null="true" />
+        </property>
+        <property name="prezime" type="string">
+            <column name="prezime" length="45" not-null="true" />
+        </property>
+        <property name="vodjagrupe" type="byte">
+            <column name="vodjagrupe" not-null="true" />
+        </property>
+        <property name="godiskustva" type="int">
+            <column name="godiskustva" not-null="true" />
+        </property>
+        <property name="dokumentcv" type="binary">
+            <column name="dokumentcv" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="45" not-null="true" />
+        </property>
+        <property name="ekstenzija" type="string">
+            <column name="ekstenzija" length="45" />
+        </property>
+        <set name="clanprojekats" table="clanprojekat" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idclan" not-null="true" />
+            </key>
+            <one-to-many class="prijava.beans.Clanprojekat" />
+        </set>
+    </class>
+</hibernate-mapping>

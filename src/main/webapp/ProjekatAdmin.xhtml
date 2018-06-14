@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:composition template="./osnovniTemplate.xhtml">
+
+        <ui:define name="head">
+            <title>Hello JSF Bootstrap</title>
+            <!-- Custom styles for this template -->
+            <h:outputStylesheet name="css/starter-template.css"/>
+        </ui:define>
+        <ui:define name="body">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        
+                        <a class="navbar-brand" href="#">#CodeGovernment</a>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a style="color: white" href="PrijaveAdmin.xhtml">Преглед пријава</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <h:form style="padding-top: 15px">
+
+                                <li><h:commandLink style="color: #AFAFAF; " action="#{loginController.logout()}" value="Oдјави се" /></li>
+                            </h:form>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+            <div class="container">
+                <div class="starter-template">
+                    <h1>Канцеларија за ИТ и еУправу</h1>
+                    <p class="lead">Основни подаци о тиму који се пријављује на Хакатон.<br/> 
+                        Можете изменити податке о члановима тима из табеле.</p>
+                </div>
+                <b:form style="width: 350px">
+                    <b:inputText id="nazivProjekta"  value="#{projektiAdminController.nazivProjekta}" readonly="true" label="Назив пројекта" required="true" />
+                    <b:message for="@previous" />
+
+                    <b:inputText id="tehnologije"  value="#{projektiAdminController.tehnologije}" readonly="true" label="Коришћене технологије" required="true" />
+                    <b:message for="@previous" />
+
+                    <b:inputTextarea id="opis" placeholder=""  label="Опис" value="#{projektiAdminController.opis}" readonly="true" maxlength="3000">
+                        <f:ajax event="keyup" render="label" />
+                    </b:inputTextarea>
+                    <b:message for="@previous" />
+                    <b:label text="" id="label"/>
+
+                </b:form>
+                <h:panelGrid columns="1" style="margin-top: 60px">
+
+                    <h:form id="tabela" style="padding-left:  50px">
+                        <h3 style="padding-bottom: 15px">Чланови тима који су учествовали на пројекту</h3>
+                        <b:dataTable value="#{projektiAdminController.clanoviUcesniciNaProjektu}" var="clanProjekat" class="editableCarTable">
+                            <b:dataTableColumn value="#{clanProjekat.clan.ime}" label="Име"/>
+                            <b:dataTableColumn value="#{clanProjekat.clan.prezime}" label="Презиме"/>
+                            <b:dataTableColumn value="#{clanProjekat.ulogauprojektu}" label="Улога"/>
+                        </b:dataTable>
+                    </h:form>
+
+                    <h:form id="tabelaD" style="padding-left:  50px">
+                        <h3 style="padding-bottom: 15px">Документа</h3>
+                        <b:dataTable value="#{projektiAdminController.dokumentaProjekta}" var="dok" class="editableDTable">
+                            <b:dataTableColumn value="#{dok.naziv}" label="Назив"/>
+                            <b:dataTableColumn value="#{dok.opis}" label="Опис"/>
+                            <b:dataTableColumn label="Документ">
+                                <p:commandLink value="Скини" ajax="false" actionListener="#{projektiAdminController.fileDownload(dok)}" >
+                                    <p:fileDownload value="#{projektiAdminController.fileDownload}" />
+                                </p:commandLink>
+                            </b:dataTableColumn>
+                        </b:dataTable>
+                    </h:form>
+                </h:panelGrid>
+
+            </div><!-- /.container -->
+        </ui:define>
+
+    </ui:composition>
+
+</html>

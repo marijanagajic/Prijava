@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 13, 2018 3:26:51 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="prijava.beans.Prijava" table="prijava" catalog="prijava" optimistic-lock="version">
+        <id name="idprijava" type="java.lang.Integer">
+            <column name="idprijava" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="grad" class="prijava.beans.Grad" fetch="select">
+            <column name="idgrad" />
+        </many-to-one>
+        <property name="nazivtima" type="string">
+            <column name="nazivtima" length="45" not-null="true" />
+        </property>
+        <property name="napomena" type="string">
+            <column name="napomena" length="45" />
+        </property>
+        <property name="username" type="string">
+            <column name="username" length="45" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="45" not-null="true" />
+        </property>
+        <property name="uloga" type="string">
+            <column name="uloga" length="10" not-null="true" />
+        </property>
+        <property name="uslovi" type="byte">
+            <column name="uslovi" />
+        </property>
+        <set name="clans" table="clan" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idprijava" not-null="true" />
+            </key>
+            <one-to-many class="prijava.beans.Clan" />
+        </set>
+        <set name="projekats" table="projekat" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idprijava" not-null="true" />
+            </key>
+            <one-to-many class="prijava.beans.Projekat" />
+        </set>
+    </class>
+</hibernate-mapping>

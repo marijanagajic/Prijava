@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 13, 2018 3:26:51 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="prijava.beans.Dokument" table="dokument" catalog="prijava" optimistic-lock="version">
+        <id name="iddokument" type="java.lang.Integer">
+            <column name="iddokument" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="projekat" class="prijava.beans.Projekat" fetch="select">
+            <column name="idprojekat" not-null="true" />
+        </many-to-one>
+        <property name="naziv" type="string">
+            <column name="naziv" length="45" not-null="true" />
+        </property>
+        <property name="opis" type="string">
+            <column name="opis" length="45" />
+        </property>
+        <property name="dokument" type="binary">
+            <column name="dokument" not-null="true" />
+        </property>
+        <property name="ekstenzija" type="string">
+            <column name="ekstenzija" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

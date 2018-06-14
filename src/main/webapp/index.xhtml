@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:bnu="http://bootsfaces.net/ui">
+    
+
+    <ui:composition template="./loginTemplate.xhtml">
+
+        <ui:define name="head">
+            <title>Hello JSF Bootstrap</title>
+            <!-- Custom styles for this template -->
+            <h:outputStylesheet name="css/starter-template.css"/>
+        </ui:define>
+        <ui:define name="body">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <a class="navbar-brand" href="#">#CodeGovernment Hackathon</a>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <h:form style="padding-top: 15px">
+                                <li><h:commandLink value="Регистрација" style="color: white; font-size: medium"  action="#{registracijaController.registruj()}"  /></li>
+                            </h:form>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+            <div class="container">
+                <div class="starter-template">
+                    <h1 style="color: #3b4e6f">Канцеларија за ИТ и еУправу</h1>
+                    <p  class="lead" style="font-style: italic;font-size: 28px; margin-bottom: 50px;color: #3b4e6f">#CodeGovernment Hackathon</p>
+                    <p  class="lead" style=" margin-bottom: 0px">    Пријављивање тимова траје од 25. априла до 13. маја 2018. године <br/> 
+                        За учешће на Хакатону прво је потребно да се <h:form>
+                            <a class="a2"> <h:commandLink class="lead" style=" background-color: white !important;" value="региструјете" 
+                                              action="#{registracijaController.registruj()}"  /> </a>
+                        </h:form> </p>
+                    
+                </div>
+
+                <h:form prependId="false" id="formaLogin">
+                    <bnu:row>
+                        <b:alert closable="true" style="width: 400px; margin-left: 380px" rendered="#{loginController.message!=null}">#{loginController.message}</b:alert>
+
+                    </bnu:row>
+
+                    <bnu:row>
+                        <bnu:column medium-screen="6" offset="3">
+                            <bnu:inputText id="username" label="Kорисничко име" value="#{loginController.username}"
+                                           required="true" renderLabel="true" />
+                        </bnu:column>
+
+                    </bnu:row>
+
+                    <bnu:row>
+                        <bnu:column medium-screen="6" offset="3">
+                            <bnu:inputSecret id="password" value="#{loginController.password}"
+                                             required="true" renderLabel="true"  label="Лозинка" />
+                        </bnu:column>
+
+                    </bnu:row>
+
+                    <bnu:row>
+                        <bnu:column span="6" offset="3" style="padding-bottom: 20px; padding-top: 26px">
+                            <bnu:commandButton value="Пријави се"  look="primary" style="width:100%; background-color:#c53636; border-color:#c53636 " ajax="false"
+                                               action="#{loginController.userLogin()}" />
+                        </bnu:column>
+
+
+                    </bnu:row>
+                </h:form>
+
+            </div><!-- /.container -->
+        </ui:define>
+
+    </ui:composition>
+
+</html>

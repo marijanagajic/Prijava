@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 13, 2018 3:26:51 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="prijava.beans.Grad" table="grad" catalog="prijava" optimistic-lock="version">
+        <id name="idgrad" type="java.lang.Integer">
+            <column name="idgrad" />
+            <generator class="identity" />
+        </id>
+        <property name="naziv" type="string">
+            <column name="naziv" length="45" not-null="true" />
+        </property>
+        <set name="prijavas" table="prijava" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idgrad" />
+            </key>
+            <one-to-many class="prijava.beans.Prijava" />
+        </set>
+    </class>
+</hibernate-mapping>

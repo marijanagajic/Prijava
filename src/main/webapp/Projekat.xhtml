@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:composition template="./osnovniTemplate.xhtml">
+
+        <ui:define name="head">
+            <title>Hello JSF Bootstrap</title>
+            <!-- Custom styles for this template -->
+            <h:outputStylesheet name="css/starter-template.css"/>
+        </ui:define>
+        <ui:define name="body">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">#CodeGovernment</a>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a style="color: white" href="Tim.xhtml">Тим</a></li>
+                            <li class="active"><a style="color: white" href="Projekti.xhtml">Пројекти</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <h:form style="padding-top: 15px">
+
+                                <li><h:commandLink style="color: #AFAFAF; " action="#{loginController.logout()}" value="Oдјави се" /></li>
+                            </h:form>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+            <div class="container">
+                <div class="starter-template">
+                    <h1 style="font-style: italic; color: #045491">#CodeGovernment Hackathon</h1>
+                    <p class="lead">Основни подаци о пројекту<br/> 
+                        Означите све чланове ако су/који су учествовали на пројекту и додајте релевантну документацију 
+                        која детаљније описује пројекат и технологије које сте користили
+                    </p>
+                </div>
+                <b:form style="width: 350px">
+                    <b:inputText id="nazivProjekta" value="#{projekatController.nazivProjekta}" readonly="true" label="Назив пројекта" required="true" />
+                    <b:message for="@previous" />
+
+                    <b:inputText id="tehnologije" value="#{projekatController.tehnologije}" style="vertical-align: top" readonly="true" label="Коришћене технологије" required="true" />
+                    <b:message for="@previous" />
+
+                    <b:inputTextarea id="opis" placeholder="" label="Опис" value="#{projekatController.opis}" readonly="true" maxlength="3000">
+                        <f:ajax event="keyup" render="label" />
+                    </b:inputTextarea>
+                    <b:message for="@previous" />
+                    <b:label text="" id="label"/>
+
+                </b:form>
+                <b:panelGrid columns="2">
+                    <h:form style="padding-top: 35px">
+                        <b:panel>
+                            <h3 style="padding-bottom: 20px">Члан тима - учесник на пројекту</h3>
+
+                            <b:selectOneMenu id="clanCombo" value="#{projekatController.clanIme}" required="true" label="Члан тима" style="width: 100%">
+                                <f:selectItems value="#{projekatController.clanoviTima}" var="clan" />
+                            </b:selectOneMenu>
+
+                            <b:inputText id="ulogaUprojektu" maxlength="250" value="#{projekatController.ulogaUProjektu}" label="Улога у пројекту" required="true" />
+                            <b:message for="@previous" />
+
+                            <b:commandButton  value="Сачувај" icon="edit" process="@form" update="@form,tabela"
+                                              action="#{projekatController.dodajClanaUcesnikaProjekta()}">
+                            </b:commandButton>
+                        </b:panel>
+                    </h:form>
+
+                    <h:form id="tabela" style="padding-left:  50px; width: 600px">
+                        <h3 style="padding-top: 20px; padding-bottom: 15px">Чланови тима који су учествовали на пројекту</h3>
+                        <b:dataTable value="#{projekatController.clanoviUcesniciNaProjektu}" var="clanProjekat" class="editableCarTable">
+                            <b:dataTableColumn value="#{clanProjekat.clan.ime}" label="Име"/>
+                            <b:dataTableColumn value="#{clanProjekat.clan.prezime}" label="Презиме"/>
+                            <b:dataTableColumn value="#{clanProjekat.ulogauprojektu}" label="Улога"/>
+                            <b:dataTableColumn label="Детаљи">
+                                <b:commandButton  value="Избриши" icon="remove" 
+                                                  action="#{projekatController.izbrisi(clanProjekat)}" update="tabela" >
+                                </b:commandButton>
+                            </b:dataTableColumn>
+                        </b:dataTable>
+                    </h:form>
+                    <b:panel >
+
+                        <h3 >Документа - докази о реализованом пројекту</h3>
+                        
+                        <h:form id="formaDokFile" enctype="multipart/form-data">
+                            <h:outputText value="* " style="color: red; font-size: larger;"/><h:outputText value="Можете унети више докумената" style="text-align: left; padding-bottom: 10px"/>
+                            <h:panelGrid style="margin-bottom: 10px;" columns="3" columnClasses="alignTop,alignTop,alignTop">
+                                <h:outputLabel value="Документ(16MB)" style="padding-top: 0px !important;" />
+                                <p:fileUpload style="padding-left: 20px; width: 150px; word-wrap: break-word;" label="Пронађи" value="#{projekatController.uploadedFileDok}" sizeLimit="16777215" skinSimple="true" mode="simple" />
+                                <p:commandButton style="background-color: buttonface; width: 150px; "  action="#{projekatController.dodajDokFile()}" value="Додај" ajax="false"
+                                                 update="@this" />
+                            </h:panelGrid>
+                            <h:panelGrid id="panelLabel" columns="1">
+                            <b:label rendered="#{projekatController.labelDokFile!= null}" value="#{projekatController.labelDokFile}" style=" background-color: white; color: #045491; font-size: medium; "/>
+                            <b:label rendered="#{projekatController.labelDokFile2!= null}" value="#{projekatController.labelDokFile2}" style=" background-color: white; color: black; font-size: medium; "/>
+                            </h:panelGrid>
+                        </h:form>
+                        <h:form style="margin-top: 10px" prependId="false" id="formaDok1">                            
+                            <b:inputText id="nazivDok" value="#{projekatController.nazivDokumenta}" maxlength="145" label="Назив документа" required="true" >
+                                <f:ajax event="keyup" render="label" />
+                            </b:inputText>
+                            <b:message for="@previous" />
+
+                            <b:inputTextarea id="opis" placeholder="" label="Опис" maxlength="400" value="#{projekatController.opisDokumenta}">
+                                <f:ajax event="keyup" render="label" />
+                            </b:inputTextarea>
+                            <b:label text="" id="label"/>
+
+                            <b:commandButton  value="Сачувај документ" icon="edit" process="@form" update="@form,:formaDokFile, :tabelaD"
+                                               action="#{projekatController.dodajDokument()}">
+                            </b:commandButton>
+
+                        </h:form>
+                    </b:panel>
+                    <h:form id="tabelaD" style="padding-left:  50px; width: 600px">
+                        <h3 style="padding-top: 20px; padding-bottom: 15px">Документа</h3>
+                        <b:dataTable value="#{projekatController.dokumentaProjekta}" var="dok" class="editableDTable">
+                            <b:dataTableColumn value="#{dok.naziv}" label="Назив"/>
+                            <b:dataTableColumn value="#{dok.opis}" label="Опис"/>
+                            <b:dataTableColumn label="Детаљи">
+                                <b:commandButton  value="Избриши" icon="remove" 
+                                                  action="#{projekatController.izbrisiDok(dok)}" update="tabelaD" >
+                                </b:commandButton>
+                            </b:dataTableColumn>
+                        </b:dataTable>
+                    </h:form>
+                </b:panelGrid>
+               
+            </div><!-- /.container -->
+        </ui:define>
+    </ui:composition>
+
+</html>

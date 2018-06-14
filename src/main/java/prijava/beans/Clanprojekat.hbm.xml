@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 13, 2018 3:26:51 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="prijava.beans.Clanprojekat" table="clanprojekat" catalog="prijava" optimistic-lock="version">
+        <composite-id name="id" class="prijava.beans.ClanprojekatId">
+            <key-property name="idclan" type="int">
+                <column name="idclan" />
+            </key-property>
+            <key-property name="idprojekat" type="int">
+                <column name="idprojekat" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="clan" class="prijava.beans.Clan" update="false" insert="false" fetch="select">
+            <column name="idclan" not-null="true" />
+        </many-to-one>
+        <many-to-one name="projekat" class="prijava.beans.Projekat" update="false" insert="false" fetch="select">
+            <column name="idprojekat" not-null="true" />
+        </many-to-one>
+        <property name="ulogauprojektu" type="string">
+            <column name="ulogauprojektu" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

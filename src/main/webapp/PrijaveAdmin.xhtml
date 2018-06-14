@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:bnu="http://bootsfaces.net/ui">
+
+
+    <ui:composition template="./osnovniTemplate.xhtml">
+
+        <ui:define name="head">
+            <title>Hello JSF Bootstrap</title>
+            <!-- Custom styles for this template -->
+            <h:outputStylesheet name="css/starter-template.css"/>
+        </ui:define>
+        <ui:define name="body">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+
+                        <a class="navbar-brand" href="#">#CodeGovernment</a>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a style="color: white" href="PrijaveAdmin.xhtml">Преглед пријава</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <h:form style="padding-top: 15px">
+
+                                <li><h:commandLink style="color: #AFAFAF; " action="#{loginController.logout()}" value="Oдјави се" /></li>
+                            </h:form>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+            <div class="container">
+                <div class="starter-template">
+                    <h1>Канцеларија за ИТ и еУправу</h1>
+                    <p class="lead">#CodeGovernment Hackathon <br/>Сви пријављени тимови.  
+                        За више података одабрати тим.</p>
+                </div>
+
+                <h:form style="padding-top: 30px">
+
+                    <b:panelGrid columns="2">
+                        <b:selectOneMenu id="mestoComb" value="#{adminController.gradCombo}" label="Место такмичења">
+                        <f:selectItems value="#{adminController.listaGradova}" var="mesto" />
+                    </b:selectOneMenu>
+                        <b:commandButton value="Претражи" action="#{adminController.pretraziTabeluPoGradu()}" style=" margin-top: 25px" />
+                    </b:panelGrid>
+                    
+                    <b:commandButton value="Извештај" action="#{jasperController.prikaziIzvestaj()}" style=" margin-top: 25px" />
+                    
+                    <h3 style="padding-bottom: 15px">Пријаве</h3>
+                    <b:dataTable value="#{adminController.listaPrijava}" var="prijava" class="editableClanProjekatTable">
+                        <b:dataTableColumn value="#{prijava.nazivtima}" label="Назив тима"/>
+                        <b:dataTableColumn value="#{prijava.napomena}" label="Напомена"/>
+                        <b:dataTableColumn value="#{prijava.grad.naziv}" label="Град"/>
+                        <b:dataTableColumn value="#{prijava.username}" label="Корисничко име"/>
+                        <b:dataTableColumn label="Детаљи">
+                            <b:commandButton  value="Преглед" icon="file" 
+                                              action="#{adminController.pregledTimaAdmin(prijava)}" >
+                            </b:commandButton>
+                        </b:dataTableColumn>
+                    </b:dataTable>
+                </h:form>
+            </div><!-- /.container -->
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:bnu="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:composition template="./loginTemplate.xhtml">
+
+        <ui:define name="head">
+
+            <!-- Custom styles for this template -->
+            <h:outputStylesheet name="css/starter-template.css"/>
+        </ui:define>
+        <ui:define name="body">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">#CodeGovernment Hackathon</a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <h:form style="padding-top: 15px">
+                            <li><h:commandLink style="color: white; " action="#{loginController.prijaviSe()}" value="Пријави се" /></li>
+                        </h:form>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container">
+                <div class="starter-template">
+                    <h1 style="color: #3b4e6f">Канцеларија за ИТ и еУправу</h1>
+                    <p class="lead" style="font-style: italic; margin-bottom: 0px">#CodeGovernment Hackathon<br/>
+                        Унесите основне податке о тиму који се пријављује на Хакатон,<br/> као и основне информације о члановима тима<br/> 
+                        Сваки тим треба да има једног лидера и укупно три или четири члана! </p>
+                </div>
+
+                <h:form>
+                    <b:panelGrid style="align-content: center" columns="2">
+                        <b:panel style="border: none">
+                            <div style="width: 350px">
+                                <b:inputText id="nazivTima" value="#{registracijaController.nazivtima}" maxlength="100" label="Назив тима" required="true" renderLabel="true" >
+                                    <f:ajax event="keyup" render="label" />
+                                </b:inputText> 
+                                <b:message for="@previous" />
+                                <b:label text="" id="label"/>
+
+                                <b:selectOneMenu id="mestoCombo" value="#{registracijaController.mesto}" required="true" label="Место такмичења" style="width: 100%">
+                                    <f:selectItem itemLabel="Изаберите град..."  itemValue="izaberiLabel" />
+                                    <f:selectItems value="#{registracijaController.gradovi}" var="mesto" />
+                                    <f:validator validatorId="gradComboValidator" />
+                                </b:selectOneMenu>
+                                <b:message for="@previous" />
+                                
+                                <b:inputText id="username" value="#{registracijaController.username}" maxlength="75" label="Корисничко име тима" required="true" >
+                                    <f:validator validatorId="usernameValidator" />
+                                    <f:ajax event="keyup" render="label" />
+                                </b:inputText>
+                                <b:message for="@previous" />
+
+                                <b:inputText id="password" value="#{registracijaController.password}" label="Лозинка" required="true" maxlength="45">
+                                    <f:ajax event="keyup" render="label" />
+                                </b:inputText>
+                                <b:message for="@previous" />
+
+                                <b:inputTextarea placeholder="" label="Напомена" value="#{registracijaController.napomena}" maxlength="450">
+                                    <f:ajax event="keyup" render="label" />
+                                </b:inputTextarea>
+                            </div>
+                        </b:panel>
+                        <b:panel style="padding-top: 5px; width: 500px">
+
+                            <h3 style="padding-bottom: 20px">Члан тима - основни подаци</h3>
+                            <b:inputText id="ime" value="#{registracijaController.ime}" label="Име" required="true" maxlength="45"/>
+                            <b:message for="@previous" />
+
+                            <b:inputText id="prezime" value="#{registracijaController.prezime}" label="Презиме" required="true" maxlength="45" />
+                            <b:message for="@previous" />
+
+                            <b:inputText id="email" value="#{registracijaController.email}" label="Електронска пошта" required="true" maxlength="145">
+                                <f:validator validatorId="еmailValidator" />
+                            </b:inputText>
+                            <b:message for="@previous" />
+
+                            <b:selectBooleanCheckbox value="#{registracijaController.vodja}" caption="Лидер" label="Да ли је члан лидер тима?" />
+
+
+                            <b:commandButton  value="Додај члана" icon="edit" process="@form " update="@form,tabela"
+                                              action="#{registracijaController.dodajClana()}"  />
+                            <b:alert severity="info" closable="true" rendered="#{!registracijaController.messageClan.isEmpty()}">#{registracijaController.messageClan}</b:alert>
+
+                        </b:panel>
+                    </b:panelGrid>
+                    
+                    <!--     </h:form> -->
+
+                    <h3 style="padding-top: 25px">Чланoви тима</h3>
+                    <!--  <h:form id="tabela" style="padding-top: 30px"> -->
+
+                    <b:dataTable id="tabela"  style="padding-top: 30px" value="#{registracijaController.clanovi}" var="clan" class="editableClanTable">
+                        <b:dataTableColumn value="#{clan.ime}" label="Име" />
+                        <b:dataTableColumn value="#{clan.prezime}" label="Презиме"/>
+                        <b:dataTableColumn value="#{clan.email}" label="Електронска пошта"/>
+                        <b:dataTableColumn value="#{clan.vodjagrupe==1 ? 'Да' : 'Не'}" label="Вођа групе"/>
+                        <b:dataTableColumn label="Детаљи">
+                            <b:commandButton  value="Избриши члана" icon="remove" 
+                                              action="#{registracijaController.izbrisi(clan)}" update="@form">
+                            </b:commandButton>
+                        </b:dataTableColumn>
+                    </b:dataTable>
+
+                    <b:alert severity="info" closable="true" rendered="#{!registracijaController.message.isEmpty()}">#{registracijaController.message}</b:alert>
+                    
+                    <a href='CodeGovernment/Pravilnik.pdf' style="color: black; background-color: white !important">Правилник #CodeGovernment Hackathon</a>
+                    <b:selectBooleanCheckbox style="margin-top: 0px" value="#{registracijaController.uslovi}" caption="Тим је упознат са Правилником #CodeGovernment Hackathon-a и прихвата услове учешћа." label=""/>
+                    <b:commandButton id="btn" style="background-color: #c53636; color: white; margin-top: 0px" size="lg" value="Региструјте се!" action="#{registracijaController.sacuvajPrijavu()}" update="@form" />
+
+                </h:form>
+
+            </div ><!-- /.container -->
+        </ui:define>
+
+    </ui:composition>
+</html>

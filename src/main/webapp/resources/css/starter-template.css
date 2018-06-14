@@ -1,0 +1,136 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 18, 2017, 10:52:33 AM
+    Author     : SVETLANA.LOKAL
+*/
+
+.starter-template {
+    padding: 70px 15px;
+    text-align: center;
+}
+
+.ui-menubar{
+    background: #111111 !important;
+    background-color: #111111;
+    
+}
+
+.ui-menubar .ui-menubar-options{
+    margin-top: 12px !important;
+}
+
+.col-lg-6{
+    width: 450px !important;
+    
+}
+
+/*a:hover{
+    background: #1e1e1e  !important;
+}*/
+
+
+
+/*#starter-template .pIndex a:hover{
+  background: aliceblue;
+}*/
+
+/*#comandlink a:hover{
+    background: #c2dfef !important;
+}*/
+
+a{
+    font-size: medium;
+    background-color: #3b4e6f !important;
+}
+
+/*.panelColumns td {
+    vertical-align: top; 
+}*/
+
+ul{
+    color: red !important;
+    background-color: red !important;
+}
+
+.navbar{
+    background-color: #3b4e6f !important;
+    border-color: #3b4e6f !important;
+}
+
+ul.nav.navbar-nav{
+    background-color: #3b4e6f !important;
+}
+
+
+
+/*html{
+    height: 100% !important;
+    width: 100% !important;
+    position: relative;
+    margin: 0 auto -200px !important;
+}
+
+body {
+   
+    height: 100% !important;
+    width: 100% !important;
+    background-color: #ffffff;
+    font-size: 12px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #000000;  
+    padding-top: 50px;
+
+}
+
+.container{
+    min-height: 100% !important;
+    height: auto !important;
+    height: 100% !important;
+    
+    }
+*/
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#wrap {
+  min-height: 35%;
+}
+
+#main {
+  overflow: auto;
+  padding-bottom: 180px;
+  /* must be same height as the footer */
+}
+
+
+#footer{
+
+    position: relative;
+    margin-top: -180px;
+    height: 180px;
+    clear: both;
+
+    background-color: #3b4e6f;
+    color: whitesmoke;
+}
+
+.ui-fileupload-filename{
+    margin-left:0px !important;
+    margin-bottom:0px;
+   
+}
+
+.alignTop {
+vertical-align: top;
+}

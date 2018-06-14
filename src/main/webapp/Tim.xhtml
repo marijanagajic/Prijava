@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="./osnovniTemplate.xhtml">
+
+        <ui:define name="head">
+            <title>Hello JSF Bootstrap</title>
+            <!-- Custom styles for this template -->
+            <h:outputStylesheet name="css/starter-template.css"/>
+        </ui:define>
+        <ui:define name="body">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">#CodeGovernment</a>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a style="color: white" href="Tim.xhtml">Тим</a></li>
+                            <li class="active"><a style="color: white" href="Projekti.xhtml">Пројекти</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <h:form style="padding-top: 15px">
+
+                                <li><h:commandLink style="color: #AFAFAF; " action="#{loginController.logout()}" value="Oдјави се" /></li>
+                            </h:form>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+            <div class="container">
+                <div class="starter-template">
+                    <h1 style="font-style: italic; color: #045491">#CodeGovernment Hackathon</h1>
+                    <p class="lead">Основни подаци о тиму који се пријављује на Хакатон<br/> 
+                      </p>
+                </div>
+                <b:panelGrid columns="2">
+                <h:form style="width: 350px; margin-left: 50px; margin-top: 15px">
+                    <b:inputText id="nazivTima" value="#{pocetnaController.nazivTima}" maxlength="100" label="Назив тима" required="true" />
+                    <b:message for="@previous" />
+                    
+                    <b:selectOneMenu id="mestoCombo" value="#{pocetnaController.mesto}" required="true" label="Место" style="width: 100%">
+                        <f:selectItems value="#{pocetnaController.gradovi}" var="mesto" />
+                    </b:selectOneMenu>
+
+                    <b:inputTextarea placeholder="" label="Напомена" value="#{pocetnaController.napomena}" maxlength="450">
+                        <f:ajax event="keyup" render="label" />
+                    </b:inputTextarea>
+                    <b:label text="" id="label"/>
+
+                    <p:commandButton style="background-color: buttonface;margin-bottom: 9px; margin-top: 10px; width: 200px"  action="#{pocetnaController.izmeni()}" value="Сачувај измене" ajax="false"
+                                     update="@form" />
+                    
+                    <b:alert severity="info" closable="true" rendered="#{pocetnaController.message!=null}">#{pocetnaController.message}</b:alert>
+                </h:form>
+
+                
+                    <h:form style="margin-right: 50px;">
+                    <h3 style="padding-top: 10px">Чланови тима</h3>
+                    <h4>Молимо попуните детаљније податке о сваком члану тима</h4>
+                    <b:dataTable value="#{pocetnaController.clanoviTima}" var="clan" responsive="true" class="editableCarTable">
+                        <b:dataTableColumn value="#{clan.ime}" label="Име"/>
+                        <b:dataTableColumn value="#{clan.prezime}" label="Презиме"/>
+                        <b:dataTableColumn value="#{clan.email}" label="Електронска пошта"/>
+                        <b:dataTableColumn value="#{clan.vodjagrupe==1 ? 'Да' : 'Не'}" label="Лидер тима" /> 
+
+                        <b:dataTableColumn label="Детаљи">
+                            <b:commandButton  value="Унеси податке/Измени" icon="edit" 
+                                              action="#{clanController.podaciOClanu(clan)}" >
+                            </b:commandButton>
+                        </b:dataTableColumn>
+                    </b:dataTable>
+                </h:form>
+                </b:panelGrid>
+            </div><!-- /.container -->
+        </ui:define>
+
+    </ui:composition>
+
+</html>
