@@ -9,11 +9,6 @@
         <param-value>commons</param-value>
     </context-param>
 
-    <context-param>   
-        <param-name>primefaces.THEME</param-name>
-        <param-value>blitzer</param-value>
-    </context-param>
-    
     <context-param>
         <param-name>primefaces.CLIENT_SIDE_VALIDATION</param-name>
         <param-value>true</param-value>
@@ -30,17 +25,17 @@
         
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-        <location>/Prijava/faces/index.xhtml</location>
+        <location>/PrijavaHakaton/faces/index.xhtml</location>
     </error-page>
         
     <error-page>
         <error-code>500</error-code>
-        <location>/Prijava/faces/index.xhtml</location>
+        <location>/PrijavaHakaton/faces/index.xhtml</location>
     </error-page>
 
     <error-page>
         <error-code>404</error-code>
-        <location>/Prijava/faces/index.xhtml</location>
+        <location>/PrijavaHakaton/faces/index.xhtml</location>
     </error-page>
 
     <filter>
@@ -67,12 +62,12 @@
     
     <session-config>
         <session-timeout>
-            30
+            130
         </session-timeout>
     </session-config>
     
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
     <mime-mapping>
         <extension>ttf</extension>
