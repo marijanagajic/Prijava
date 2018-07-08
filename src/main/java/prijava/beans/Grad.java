@@ -1,5 +1,5 @@
 package prijava.beans;
-// Generated Feb 13, 2018 3:26:51 PM by Hibernate Tools 4.3.1
+// Generated Jul 8, 2018 12:04:19 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -49,12 +49,10 @@ public class Grad  implements java.io.Serializable {
         this.prijavas = prijavas;
     }
 
-    @Override
+@Override
     public String toString() {
         return naziv;
     }
-
-
 
 
 }

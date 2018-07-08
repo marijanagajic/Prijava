@@ -46,5 +46,11 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/prijava?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">marijana</property>
     <property name="hibernate.connection.password">m@r1j@n@</property>
+    <mapping resource="prijava/beans/Projekat.hbm.xml"/>
+    <mapping resource="prijava/beans/Clanprojekat.hbm.xml"/>
+    <mapping resource="prijava/beans/Grad.hbm.xml"/>
+    <mapping resource="prijava/beans/Clan.hbm.xml"/>
+    <mapping resource="prijava/beans/Dokument.hbm.xml"/>
+    <mapping resource="prijava/beans/Prijava.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

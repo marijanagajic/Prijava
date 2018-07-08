@@ -1,5 +1,5 @@
 package prijava.beans;
-// Generated Feb 13, 2018 3:26:51 PM by Hibernate Tools 4.3.1
+// Generated Jul 8, 2018 12:04:19 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -18,7 +18,7 @@ public class Prijava  implements java.io.Serializable {
      private String username;
      private String password;
      private String uloga;
-     private byte uslovi;
+     private Byte uslovi;
      private Set clans = new HashSet(0);
      private Set projekats = new HashSet(0);
 
@@ -32,13 +32,14 @@ public class Prijava  implements java.io.Serializable {
         this.password = password;
         this.uloga = uloga;
     }
-    public Prijava(Grad grad, String nazivtima, String napomena, String username, String password, String uloga, Set clans, Set projekats) {
+    public Prijava(Grad grad, String nazivtima, String napomena, String username, String password, String uloga, Byte uslovi, Set clans, Set projekats) {
        this.grad = grad;
        this.nazivtima = nazivtima;
        this.napomena = napomena;
        this.username = username;
        this.password = password;
        this.uloga = uloga;
+       this.uslovi = uslovi;
        this.clans = clans;
        this.projekats = projekats;
     }
@@ -74,30 +75,35 @@ public class Prijava  implements java.io.Serializable {
     public String getUsername() {
         return this.username;
     }
+    
     public void setUsername(String username) {
         this.username = username;
     }
     public String getPassword() {
         return this.password;
     }
+    
     public void setPassword(String password) {
         this.password = password;
     }
     public String getUloga() {
         return this.uloga;
     }
+    
     public void setUloga(String uloga) {
         this.uloga = uloga;
     }
-    public byte getUslovi() {
-        return uslovi;
+    public Byte getUslovi() {
+        return this.uslovi;
     }
-    public void setUslovi(byte uslovi) {
+    
+    public void setUslovi(Byte uslovi) {
         this.uslovi = uslovi;
     }
     public Set getClans() {
         return this.clans;
     }
+    
     public void setClans(Set clans) {
         this.clans = clans;
     }
